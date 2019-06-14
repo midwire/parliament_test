@@ -5,3 +5,4 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'pry'
 gem 'rspec'
+gem 'rubocop'
