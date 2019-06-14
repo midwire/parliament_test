@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class MyModel
   def do_something
-    return true
+    true
   end
 end
