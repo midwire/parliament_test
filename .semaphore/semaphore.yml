@@ -4,7 +4,7 @@ version: v1.0
 # Name your pipeline. In case you connect multiple pipelines with promotions,
 # the name will help you differentiate between, for example, a CI build phase
 # and delivery phases.
-name: Demo Rails 5 app
+name: Parliament Rack App
 
 # An agent defines the environment in which your code runs.
 # It is a combination of one of available machine types and operating
@@ -69,19 +69,13 @@ blocks:
           - cache restore gems-$SEMAPHORE_GIT_BRANCH-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH-,gems-master-
           # Start Postgres database service.
           # See https://docs.semaphoreci.com/article/54-toolbox-reference#sem-service
-          - sem-service start postgres
           - sem-version ruby 2.6.0
           - bundle install --deployment --path vendor/bundle
-          - bundle exec rake db:setup
 
       jobs:
-      - name: RSpec - model tests
+      - name: RSpec
         commands:
-          - bundle exec rspec spec/models
-
-      - name: RSpec - controller tests
-        commands:
-          - bundle exec rspec spec/controllers
+          - bundle exec rspec spec/
 
   # Note that it's possible to define an agent on a per-block level.
   # For example, if your integration tests need more RAM, you could override
@@ -96,9 +90,3 @@ blocks:
           - sem-service start postgres
           - sem-version ruby 2.6.0
           - bundle install --deployment --path vendor/bundle
-          - bundle exec rake db:setup
-
-      jobs:
-      - name: RSpec - feature specs
-        commands:
-          - bundle exec rspec spec/features
